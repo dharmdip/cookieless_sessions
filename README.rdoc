@@ -4,7 +4,7 @@ A rails gem that brings together everything needed to enable cookieless sessions
 
 Let's say you're developing a mobile phone site and cookie-based sessions just don't
 work for a significant segment of your user base.  There are various bits of code scattered
-around, and at least one old gem for dealing with this.  However, getting everything
+around, and at least one older plugin for dealing with this.  However, getting everything
 together and working requires a good deal of monkey patching.  That's where this gem
 comes in: all the monkey patches together in one place.  
 
