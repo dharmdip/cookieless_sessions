@@ -54,6 +54,10 @@ the current session will be lost if cookie handling flip-flops.
 You can customize this method as you see fit.  Please note, however, that the gem
 depends on the :cookies_off session key.  
 
+== Compatibility
+
+This code is currently running on Rails 2.1.0, 2.1.2 and 2.2.2 based sites. 
+
 == Gotchas
 
 There aren't very many.  Variations of this have been running in production on several
@@ -66,7 +70,7 @@ tried incorporating the session_id as a hidden variable in the form.  This works
 passing the parameter, but getting the session handling code to pick it up, and selectively 
 excluding the query parameter from the form action url has proven very difficult.  
 
-== Credits
+== Credits/Sources
 
 * {The original source of the main monkey patch}[http://dev.rubyonrails.org/ticket/10900]
 * {Changing sessions options in rails}[http://wiki.rubyonrails.org/rails/pages/HowtoChangeSessionOptions]

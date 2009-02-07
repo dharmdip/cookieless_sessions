@@ -1,0 +1,3 @@
+* Some phones cannot handle GET and POST parameters in the same request.  Investigate the possibility of prepending the session_key to the path at the time the route is interpolated. 
+* The method for retrieving the default session key in the default_url_options is inelegant.  There ought to be (and probably is) a better way.
+* Add a generator to build a lib containing the default check_cookie method for inclusion in to the ApplicationController.
