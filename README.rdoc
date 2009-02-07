@@ -4,9 +4,9 @@ A rails gem that brings together everything needed to enable cookieless sessions
 
 Let's say you're developing a mobile phone site and cookie-based sessions just don't
 work for a significant segment of your user base.  There are various bits of code scattered
-around, and at least one older plugin for dealing with this.  However, getting everything
-together and working requires a good deal of monkey patching.  That's where this gem
-comes in: all the monkey patches together in one place.  
+around, and at least one older plugin for dealing with this.  However, the plugin does not seem
+to work on recent versions of rails and gathering the scattered code examples requires a good 
+deal of monkey patching.  That's where this gem comes in: all the monkeys pre-patched for you.  
 
 == Install 
 
@@ -25,7 +25,7 @@ Next, require it in environment.rb after the Rails::Initializer block:
 
   require 'cookieless_sessions'
 
-Lastly, you need to add a before_filter to your ApplicationController
+Lastly, add a before_filter to the ApplicationController
 to check to see if cookies are enabled:
 
   class ApplicationController < ActionController::Base
@@ -47,12 +47,13 @@ to check to see if cookies are enabled:
     end
   end 
 
-I suggest that, once a session has been set as cookieless, you should not try to 
-change it back (i.e. <tt>else; session[:cookies_off] = false; end;</tt>).  If you do, 
-the current session will be lost if cookie handling flip-flops.
+I suggest that, once a session has been flagged as cookieless, it should not be
+changed back (i.e. <tt>else; session[:cookies_off] = false; end;</tt>).  If it is possible
+for cookies_off to change on-the-fly, then the current session will 
+be lost if cookie handling flip-flops.
 
 You can customize this method as you see fit.  Please note, however, that the gem
-depends on the :cookies_off session key.  
+depends on the :cookies_off session key and is checking for an explicit boolean true. 
 
 == Compatibility
 
@@ -61,14 +62,18 @@ This code is currently running on Rails 2.1.0, 2.1.2 and 2.2.2 based sites.
 == Gotchas
 
 There aren't very many.  Variations of this have been running in production on several
-of our apps for months now.  The main thing to watch out for is phones that can't handle
-GET and POST variables in the same request (which, if I'm honest, is a bit of a flakey
-way to do it). Happily, they are becoming rare.  The main symptom is a controller method 
-throwing exceptions because the only parameter it receives is the session_id: The phone
-sees the query string on the form action and discards any other parameters.  So far, I've
-tried incorporating the session_id as a hidden variable in the form.  This works fine for
-passing the parameter, but getting the session handling code to pick it up, and selectively 
-excluding the query parameter from the form action url has proven very difficult.  
+of our apps for months now.  
+
+The main thing to watch out for is phones that can't handle GET and POST variables in 
+the same request. Happily, they are becoming rare (and, if I'm honest, using both methods
+in one request is pretty flakey).  
+
+The main symptom is a controller method throwing exceptions because the only parameter 
+it receives is the session_id: The phone sees the query string on the form action and 
+discards any other parameters.  So far, I've tried incorporating the session_id as a hidden 
+variable in the form.  This works fine for passing the parameter, but getting the session 
+handling code to pick it up, and selectively excluding the query parameter from the form 
+action url has proven very difficult.  
 
 == Credits/Sources
 
@@ -76,3 +81,7 @@ excluding the query parameter from the form action url has proven very difficult
 * {Changing sessions options in rails}[http://wiki.rubyonrails.org/rails/pages/HowtoChangeSessionOptions]
 * {The fatdrive.tv cookieless session plugin}[http://wiki.rubyonrails.org/rails/pages/HowtoChangeSessionOptions]
 * {The original source of the default_url_options example}[http://brantinteractive.com/2008/05/13/cookieless-sessions-in-rails/]
+
+== License
+
+MIT
