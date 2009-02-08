@@ -1,1 +1,0 @@
-require 'cookieless_sessions'
